@@ -83,7 +83,7 @@ def test_check_unique_move_returns_False_invalid_move():
         column = 1
         assert match.check_unique_move(new_game.board.state, row, column) == False
 
-def test_check_unique_move_returns_True_valid_move_breaks_while_loop():
+def test_check_unique_move_returns_True_valid_move():
         match = PlayGame('bob', 'john')
         store = build_store()
         new_game = match.create_game(store, match.name_1, match.name_2)
@@ -91,3 +91,36 @@ def test_check_unique_move_returns_True_valid_move_breaks_while_loop():
         row = 1
         column = 2
         assert match.check_unique_move(new_game.board.state, row, column) == True
+
+def test_check_unique_move_returns_False_invalid_move():
+        match = PlayGame('bob', 'john')
+        store = build_store()
+        new_game = match.create_game(store, match.name_1, match.name_2)
+        match.make_turn(store, new_game, new_game.user_1, 1, 1)
+        row = 1
+        column = 1
+        assert match.check_unique_move(new_game.board.state, row, column) == False
+
+def test_check_valid_input_returns_true():
+        match = PlayGame('bob', 'john')
+        store = build_store()
+        new_game = match.create_game(store, match.name_1, match.name_2)
+        row_input = 1 
+        column_input = 1
+        assert match.check_valid_input(row_input, column_input) == True
+
+def test_check_valid_input_returns_false_with_letter_input():
+        match = PlayGame('bob', 'john')
+        store = build_store()
+        new_game = match.create_game(store, match.name_1, match.name_2)
+        row_input = 1 
+        column_input = 'a'
+        assert match.check_valid_input(row_input, column_input) == False
+
+def test_check_valid_input_returns_false_with_non_integer_input():
+        match = PlayGame('bob', 'john')
+        store = build_store()
+        new_game = match.create_game(store, match.name_1, match.name_2)
+        row_input = 1 
+        column_input = -1
+        assert match.check_valid_input(row_input, column_input) == False
